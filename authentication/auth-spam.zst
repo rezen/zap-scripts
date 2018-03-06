@@ -1,0 +1,177 @@
+{
+  "about": "This is for authenticating against Barracuda ESG (Spam Firewall)",
+  "zestVersion": "0.8",
+  "title": "auth-spam.zst",
+  "description": "",
+  "prefix": "",
+  "type": "StandAlone",
+  "parameters": {
+    "tokenStart": "{{",
+    "tokenEnd": "}}",
+    "tokens": {
+      "password": "admin",
+      "baseurl": "https://10.15.86.30",
+      "target": "https://10.15.86.30/cgi-mod/index.cgi",
+      "username": "admin"
+    },
+    "elementType": "ZestVariables"
+  },
+  "statements": [
+    {
+      "urlToken": "{{target}}",
+      "data": "",
+      "method": "GET",
+      "headers": "Proxy-Connection: keep-alive\r\nUpgrade-Insecure-Requests: 1\r\n",
+      "response": {
+        "urlToken": "{{target}}",
+        "headers": "",
+        "body": "",
+        "statusCode": 200,
+        "responseTimeInMs": 65,
+        "elementType": "ZestResponse"
+      },
+      "assertions": [
+        {
+          "rootExpression": {
+            "code": 200,
+            "not": false,
+            "elementType": "ZestExpressionStatusCode"
+          },
+          "elementType": "ZestAssertion"
+        }
+      ],
+      "followRedirects": true,
+      "cookies": [],
+      "index": 1,
+      "enabled": true,
+      "elementType": "ZestRequest"
+    },
+    {
+      "message": "\nStarting to auth for spam\nusername: {{username}}\nurl: {{target}}\npassword: {{password}}",
+      "index": 2,
+      "enabled": true,
+      "elementType": "ZestActionPrint"
+    },
+    {
+      "prefix": "enc_key\" type\u003d\"hidden\" value\u003d\"",
+      "postfix": "\"\u003e",
+      "location": "BODY",
+      "variableName": "enckey",
+      "index": 3,
+      "enabled": true,
+      "elementType": "ZestAssignStringDelimiters"
+    },
+    {
+      "prefix": "\"et\" type\u003d\"hidden\" value\u003d\"",
+      "postfix": "\"\u003e",
+      "location": "BODY",
+      "variableName": "et",
+      "index": 4,
+      "enabled": true,
+      "elementType": "ZestAssignStringDelimiters"
+    },
+    {
+      "message": "enc_key: {{enckey}} \net: {{et}}",
+      "index": 5,
+      "enabled": true,
+      "elementType": "ZestActionPrint"
+    },
+    {
+      "urlToken": "{{target}}",
+      "data": "enc_key\u003d{{enckey}}\u0026et\u003d{{et}}\u0026user\u003dadmin\u0026password\u003dNM5ePMQ%3D\u0026enctype\u003dbc\u0026password_entry\u003d\u0026login_page\u003d1\u0026login_state\u003dout\u0026real_user\u003dadmin\u0026locale\u003den_US\u0026form\u003df",
+      "method": "POST",
+      "headers": "Proxy-Connection: keep-alive\r\nX-Requested-With: XMLHttpRequest\r\nContent-Type: application/x-www-form-urlencoded\r\nCookie: barracuda_auth\u003d",
+      "response": {
+        "urlToken": "{{target}}",
+        "headers": "",
+        "body": "",
+        "statusCode": 200,
+        "responseTimeInMs": 480,
+        "elementType": "ZestResponse"
+      },
+      "assertions": [
+        {
+          "rootExpression": {
+            "code": 200,
+            "not": false,
+            "elementType": "ZestExpressionStatusCode"
+          },
+          "elementType": "ZestAssertion"
+        },
+        {
+          "rootExpression": {
+            "regex": "\"success\":\"true\"",
+            "variableName": "response.body",
+            "caseExact": false,
+            "not": false,
+            "elementType": "ZestExpressionRegex"
+          },
+          "elementType": "ZestAssertion"
+        }
+      ],
+      "followRedirects": false,
+      "cookies": [],
+      "index": 6,
+      "enabled": true,
+      "elementType": "ZestRequest"
+    },
+    {
+      "prefix": "\"redirect\":\"",
+      "postfix": "\",\"",
+      "location": "BODY",
+      "variableName": "redirecto",
+      "index": 7,
+      "enabled": true,
+      "elementType": "ZestAssignStringDelimiters"
+    },
+    {
+      "message": "[!] Redir below {{redirecto}}",
+      "index": 8,
+      "enabled": true,
+      "elementType": "ZestActionPrint"
+    },
+    {
+      "urlToken": "{{baseurl}}{{redirecto}}",
+      "data": "",
+      "method": "GET",
+      "headers": "Proxy-Connection: keep-alive\r\nUpgrade-Insecure-Requests: 1\r\n",
+      "response": {
+        "urlToken": "{{target}}?auth_type\u003dLocal\u0026et\u003d1517437259\u0026locale\u003den_US\u0026password\u003d0b64d8915207444f1459112c67c97b10\u0026user\u003dadmin",
+        "headers": "",
+        "body": "",
+        "statusCode": 200,
+        "responseTimeInMs": 1219,
+        "elementType": "ZestResponse"
+      },
+      "assertions": [
+        {
+          "rootExpression": {
+            "code": 200,
+            "not": false,
+            "elementType": "ZestExpressionStatusCode"
+          },
+          "elementType": "ZestAssertion"
+        },
+        {
+          "rootExpression": {
+            "regex": "\\QSign out\\E",
+            "variableName": "response.body",
+            "caseExact": false,
+            "not": false,
+            "elementType": "ZestExpressionRegex"
+          },
+          "elementType": "ZestAssertion"
+        }
+      ],
+      "followRedirects": true,
+      "cookies": [],
+      "index": 9,
+      "enabled": true,
+      "elementType": "ZestRequest"
+    }
+  ],
+  "authentication": [],
+  "index": 0,
+  "enabled": true,
+  "elementType": "ZestScript"
+}

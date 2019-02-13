@@ -59,11 +59,20 @@ def print_flags_from_config(config):
 
 def main():
 	""" Reads first arg for path to config.xml for parsing """
-	config_xml = os.path.expanduser("~") + "/.ZAP_D/config.xml"
+	config_xml = None
+	config_paths = [
+		os.path.expanduser("~") + "/Library/Application Support/ZAP_D/config.xml",
+		os.path.expanduser("~") + "/Library/Application Support/ZAP/config.xml",
+		os.path.expanduser("~") + "/.ZAP_D/config.xml",
+		os.path.expanduser("~") + "/.ZAP/config.xml",
+	]
 
 	if len(sys.argv) > 1:
 		config_xml = sys.argv[1]
 	
+	if config_xml is None:
+		config_xml = next(iter([c for c in config_paths if os.path.isfile(c)]), None)
+
 	print("[i] Reading config %s" % config_xml)
 	if not os.path.isfile(config_xml):
 		print("[!] File does not appear to exist")

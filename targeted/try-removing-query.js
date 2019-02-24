@@ -20,9 +20,9 @@ function logger() {
 function serialize(obj) {
 	var str = [];
 	for (var p in obj)
-	  if (obj.hasOwnProperty(p)) {
-		str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-	  }
+	  	if (obj.hasOwnProperty(p)) {
+			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+	  	}
 	return str.join("&");
   }
 
@@ -41,7 +41,6 @@ function parseQuery(queryString) {
 function getCombinations(chars) {
 	var result = [];
 	var f = function(prefix, chars) {
-		logger(prefix)
 		for (var i = 0; i < chars.length; i++) {
 			result.push(prefix.concat(chars[i]));
 			f(prefix.concat(chars[i]), chars.slice(i + 1));
@@ -73,6 +72,7 @@ function invokeWith(msg) {
 			data[key] = queryData[key];
 		}
 
+		// @todo ideally check if request has already been made
 		logger();
 		logger("Sending params: " + params.join(", "));
 		var newQuery = serialize(data);

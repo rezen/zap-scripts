@@ -8,7 +8,7 @@ cd ~/tmp
 
 command -v zap.sh
 
-if [ `uname` == 'Darwin' ]
+if [ `uname` == 'Darwin' ] && [ -d "/Applications/OWASP\ ZAP.app/Contents/Java/" ]
 then
     appdir="/Applications/OWASP\ ZAP.app/Contents/Java/"
 else 

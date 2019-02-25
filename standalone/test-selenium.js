@@ -1,6 +1,5 @@
 // Example of how to use the Selenium webdriver to interact with a 
 // dynamic page
-if (typeof println == 'undefined') this.println = print;
 
 // Logging with the script name is super helpful!
 function logger() {

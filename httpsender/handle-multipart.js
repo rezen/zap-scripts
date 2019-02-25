@@ -1,7 +1,6 @@
 // ZAP currently does not handle multi-part forms, so this
 // stands in the gap and parses multi-part requests and 
 // adds the params to the Params store
-if (typeof println == 'undefined') this.println = print;
 
 // Logging with the script name is super helpful!
 function logger() {

@@ -1,7 +1,6 @@
 // OWASP JuiceShop has issues with scans not staying authenticated
 // even when routes are excluded. Also a Bearer header is not included
 // in attacks which it should, so this fixes that missing header
-if (typeof println == 'undefined') this.println = print;
 
 // Logging with the script name is super helpful!
 function logger() {

@@ -1,5 +1,4 @@
 // Remove 404s from request history
-if (typeof println == 'undefined') this.println = print;
 
 // Logging with the script name is super helpful!
 function logger() {
@@ -16,7 +15,7 @@ var rootNode = tree.getRoot();
 
 function hasBadStatusCode(item) {
   if (item === null) {return true;}
-  return item.getStatusCode() === 404 || item.getStatusCode() === 502 || item.getStatusCode() === null || item.getStatusCode() === 0;
+  return item.getStatusCode() === 404 || item.getStatusCode() === 502 || item.getStatusCode() === null;
 }
 
 function removeBadStatusCodeRef(item) {

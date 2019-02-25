@@ -2,7 +2,6 @@
 // For example you may have a ZEST script that get's a JWT token
 // and another httpsender that uses rewrites the header to add that token
 // ... you can pass that token between with this script
-if (typeof println == 'undefined') this.println = print;
 
 // Logging with the script name is super helpful!
 function logger() {

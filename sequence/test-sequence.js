@@ -1,6 +1,5 @@
 // Boilerplate for sequence script
 
-if (typeof println == 'undefined') this.println = print;
 
 var List = Java.type('java.util.List');
 var View = Java.type('org.parosproxy.paros.view.View');

@@ -44,9 +44,16 @@ function invokeWith(msg) {
 
   Thread.sleep(4000);
 	var matches = getAll(regexWhen, body);
+  var visited = {};
+
   for (var i in matches) {
-    driver.get(root + '#' +  matches[i][1]);
+    var endpoint = matches[i][1];
+    if (visited[endpoint]) {
+      continue;
+    }
+    driver.get(root + '#' +  endpoint);
     Thread.sleep(2000);
+    visited[endpoint] = 1;
   }
   
   driver.quit();

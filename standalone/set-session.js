@@ -1,6 +1,5 @@
 // If you have a script (eg ZEST) that authenticates and you need to 
 // set the active session to the new one just set, invoke this script
-if (typeof println == 'undefined') this.println = print;
 
 var URL                   = Java.type('java.net.URL');
 var Control               = Java.type('org.parosproxy.paros.control.Control');

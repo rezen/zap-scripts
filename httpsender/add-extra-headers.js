@@ -1,3 +1,4 @@
+/*exported sendingRequest, responseReceived*/
 // Logging with the script name is super helpful!
 function logger() {
   print('[' + this['zap.script.name'] + '] ' + arguments[0]);
@@ -29,10 +30,12 @@ var ignoreHeader = [
   'X-NewRelic-ID',
 ]
 
+/*
+@todo
 var ignoreHeaderPatterns = [
   /If-.+/,
 ]
-
+*/
 function sendingRequest(msg, initiator, helper) {  
   if (initiator === HttpSender.AUTHENTICATION_INITIATOR) {
     logger("Trying to auth")
@@ -68,6 +71,7 @@ function sendingRequest(msg, initiator, helper) {
        if (~ignoreHeader.indexOf(name)) {
          continue
        }
+       
        logger("Found interesting header: " + name)
        extras[name] = val
      }

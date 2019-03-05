@@ -1,3 +1,4 @@
+/* exported invokeWith */
 // Target the javascript file that has route declarations for angularjs 1.x
 function logger() {
   print('[' + this['zap.script.name'] + '] ' + arguments[0]);
@@ -5,12 +6,7 @@ function logger() {
 
 var Control           = Java.type('org.parosproxy.paros.control.Control')
 var ExtensionSelenium = Java.type('org.zaproxy.zap.extension.selenium.ExtensionSelenium');
-var HttpSender        = Java.type('org.parosproxy.paros.network.HttpSender');
 var Thread            = Java.type('java.lang.Thread');
-var Actions           = Java.type('org.openqa.selenium.interactions.Actions')
-var By                = Java.type('org.openqa.selenium.By');
-var WebElement        = Java.type('org.openqa.selenium.WebElement');
-var WebDriver         = Java.type('org.openqa.selenium.WebDriver');
 
 function getAll(re, body) {
 	var match;

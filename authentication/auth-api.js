@@ -1,3 +1,4 @@
+/*exported getRequiredParamsNames,authenticate,getOptionalParamsNames,getCredentialsParamsNames */
 // Generic authentication script for authing against an API
 
 // Logging with the script name is super helpful!
@@ -45,12 +46,12 @@ function authenticate(helper, paramsValues, credentials) {
 
 function getRequiredParamsNames() {
   return ['API URL', 'JSON'];
-};
+}
 
 function getOptionalParamsNames() {
   return ['TokenAttr'];
-};
+}
 
 function getCredentialsParamsNames() {
   return ['Username', 'Password'];
-};
+}

@@ -1,3 +1,4 @@
+/*exported sendingRequest, responseReceived*/
 // ZAP currently does not handle multi-part forms, so this
 // stands in the gap and parses multi-part requests and 
 // adds the params to the Params store
@@ -17,7 +18,6 @@ var rexname = /name=["']([^'"]+)["']/;
 // Capture post requests with multipart forms
 function sendingRequest(msg, initiator, helper) {
   var headers = msg.getRequestHeader();
-  var url     = headers.getURI().toString();
 
   // If it's not a post request, notthing to do
   if (headers.getMethod() !== 'POST') {return;}
@@ -47,7 +47,7 @@ function sendingRequest(msg, initiator, helper) {
     // Extra empty line
     lines.shift();
     var name = rexname.exec(lines.shift());
-    if (!name[1]) {continue};
+    if (!name[1]) {continue;}
     name = name[1];
     logger(i + " " + name)
     

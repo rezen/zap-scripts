@@ -1,3 +1,4 @@
+/*exported sendingRequest, responseReceived*/
 // With many applications you, especially legacy, you want to
 // treat the query params values are unique, since a query param
 // indicate a unique page. Unfortunately, you may want to ignore
@@ -20,7 +21,7 @@ var Model      = Java.type('org.parosproxy.paros.model.Model');
 var removeParams = {
   et:   /et=([0-9]{10})/,
   password: /password=([0-9a-z]{32})/,
-  user: /user=([^\&]+)/,
+  user: /user=([^&]+)/,
 }
 
 // Strip out the query params we don't need
@@ -28,7 +29,7 @@ function stripUrlExtras(url) {
   for (var name in removeParams) {
     url = url.replace(removeParams[name],'').replace('&&', '&');
   }
-  return url.replace(/\&+$/, "");
+  return url.replace(/&+$/, "");
 }
 
 // Check if url matches HistoryReference

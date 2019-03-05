@@ -27,6 +27,8 @@ function lookupKey(data, find, path) {
 
 
 // Get all the keys in the object
+// For future reference ...
+/*
 function getKeys(data, path) {
     path = path || [];
     var keys = [];
@@ -41,6 +43,7 @@ function getKeys(data, path) {
     }
     return keys;
 }
+*/
 
 function appliesToHistoryType(historyType) {
 	return PluginPassiveScanner.getDefaultHistoryTypes().contains(historyType);
@@ -52,7 +55,7 @@ function scan(pscan, msg, src) {
         return;
     }
   
-  	var path = msg.getRequestHeader().getURI().getPath();
+  	// var path = msg.getRequestHeader().getURI().getPath();
   	var body = msg.getResponseBody().toString();
   	var contentType = msg.getResponseHeader().getHeader('Content-Type');
 

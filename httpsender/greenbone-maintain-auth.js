@@ -1,3 +1,4 @@
+/*exported sendingRequest, responseReceived*/
 // Greenbone auth & sessions are a bit flaky with scans ...
 // ... this helps make auth less flaky
 // Logging with the script name is super helpful!
@@ -45,6 +46,7 @@ function isStaticUrl(url) {
 var COOKIE_TYPE   = org.parosproxy.paros.network.HtmlParameter.Type.cookie;
 var ScriptVars    = Java.type('org.zaproxy.zap.extension.script.ScriptVars');
 var HtmlParameter = Java.type('org.parosproxy.paros.network.HtmlParameter');
+var HttpSender    = Java.type('org.parosproxy.paros.network.HttpSender');
 
 // Rewrite requests to include correct query token param
 function sendingRequest(msg, initiator, helper) {  
@@ -92,7 +94,7 @@ function sendingRequest(msg, initiator, helper) {
   var newqry = "token=" + token;
 
   if (qry !== null) {
-    newqry = qry.replace(/[a-z0-9]{8}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{12}/, token);
+    newqry = qry.replace(/[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/, token);
   }
 
   // @todo add token to post data
@@ -105,7 +107,6 @@ function responseReceived(msg, initiator, helper) {
   var resbody    = msg.getResponseBody().toString()
   var headers    = msg.getRequestHeader();
   var resheaders = msg.getResponseHeader();
-  var url        = headers.getURI().toString();
 
   // Login is only via POST
   if (headers.getMethod() !== 'POST') {return;}

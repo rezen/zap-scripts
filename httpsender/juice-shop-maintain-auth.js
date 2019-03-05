@@ -1,3 +1,4 @@
+/*exported sendingRequest, responseReceived*/
 // OWASP JuiceShop has issues with scans not staying authenticated
 // even when routes are excluded. Also a Bearer header is not included
 // in attacks which it should, so this fixes that missing header
@@ -35,16 +36,14 @@ function isStaticUrl(url) {
 }
 
 var HttpSender    = Java.type('org.parosproxy.paros.network.HttpSender');
-var COOKIE_TYPE   = org.parosproxy.paros.network.HtmlParameter.Type.cookie;
 var ScriptVars    = Java.type('org.zaproxy.zap.extension.script.ScriptVars');
-var HtmlParameter = Java.type('org.parosproxy.paros.network.HtmlParameter');
 
 function sendingRequest(msg, initiator, helper) {  
-  var reqbody = msg.getRequestBody().toString();
   var headers = msg.getRequestHeader();
   var url     = headers.getURI().toString();
-  var qry     = headers.getURI().getQuery();
-  var cookies = headers.getCookieParams();
+  // var qry     = headers.getURI().getQuery();
+  // var cookies = headers.getCookieParams();
+  // var reqbody = msg.getRequestBody().toString();
   
   if (initiator === HttpSender.SPIDER_INITIATOR) {}  
   if (isStaticUrl(url)) {return true;}

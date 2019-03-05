@@ -1,5 +1,5 @@
+/*exported runSequenceBefore,runSequenceAfter,isPartOfSequence,getAllRequestsInScript,scanSequence*/
 // Boilerplate for sequence script
-
 
 var List = Java.type('java.util.List');
 var View = Java.type('org.parosproxy.paros.view.View');
@@ -7,9 +7,8 @@ var View = Java.type('org.parosproxy.paros.view.View');
 // Logging with the script name is super helpful!
 function logger() {
   print('[' + this['zap.script.name'] + '] ' + arguments[0]);
-  View.getSingleton().getOutputPanel().appendAsync(('[' + this['zap.script.name'] + '] ' + arguments[0] + "\n");
+  View.getSingleton().getOutputPanel().appendAsync('[' + this['zap.script.name'] + '] ' + arguments[0] + "\n");
 }
-
 function runSequenceBefore(msg, plugin) {
   logger('run-before');
 }

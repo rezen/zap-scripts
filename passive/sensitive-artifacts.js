@@ -41,15 +41,15 @@ function appliesToHistoryType(historyType) {
 }
 
 function addAlert(pscan, msg, fname, cat) {
-    risk = 3
-    confidence = 3
-    name = "Sensitive Artifact(s) Exposed - "  + cat
-    description = "The following artifact was found that should probably not be expose. " +  fname
-    attack = ""
-    evidence = ""
-    parameter = ""
-    other = msg.getResponseBody().toString()
-    solution = [
+    var risk = 3;
+    var confidence = 3;
+    var name = "Sensitive Artifact(s) Exposed - "  + cat;
+    var description = "The following artifact was found that should probably not be expose. " +  fname;
+    var attack = "";
+    var evidence = "";
+    var parameter = "";
+    var other = msg.getResponseBody().toString()
+    var solution = [
 		"Make sure to remove this file as part of deployment",
 		"or configure the web server to hide it from public access"
 	].join(" ");

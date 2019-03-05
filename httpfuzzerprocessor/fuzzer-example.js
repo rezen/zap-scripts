@@ -1,3 +1,4 @@
+/*exported processMessage,processResult*/
 // If you need to replace two sections with the same fuzzer value
 // you can use `__x1__` as a template tag that is replaced with
 // the matching fuzz payload location

@@ -1,3 +1,4 @@
+/*exported sendingRequest, responseReceived*/
 // This script makes sure requests are always made with the auth cookies
 
 // Logging with the script name is super helpful!
@@ -9,13 +10,13 @@ var ScriptVars    = Java.type('org.zaproxy.zap.extension.script.ScriptVars');
 var HtmlParameter = Java.type('org.parosproxy.paros.network.HtmlParameter')
 var COOKIE_TYPE   = org.parosproxy.paros.network.HtmlParameter.Type.cookie;
 
-
 function sendingRequest(msg, initiator, helper) {  
-  var reqbody = msg.getRequestBody().toString();
+  // var reqbody = msg.getRequestBody().toString();
   var headers = msg.getRequestHeader();
-  var url     = headers.getURI().toString();
-  var qry     = headers.getURI().getQuery();
   var cookies = headers.getCookieParams();
+
+  // var url     = headers.getURI().toString();
+  // var qry     = headers.getURI().getQuery();
 
   // @todo prevent re-auth
   var key         = ScriptVars.getGlobalVar("sesh.key");
@@ -35,12 +36,13 @@ function sendingRequest(msg, initiator, helper) {
 
 // If a cookie was set, capture it
 function responseReceived(msg, initiator, helper) {
-  var reqbody    = msg.getRequestBody().toString();
-  var resbody    = msg.getResponseBody().toString();
-  var headers    = msg.getRequestHeader();
   var resheaders = msg.getResponseHeader();
-  var url        = headers.getURI().toString();
   var setCookie  = resheaders.getHeader('Set-Cookie');
+  // var headers    = msg.getRequestHeader();
+  // var url        = headers.getURI().toString();
+  // var reqbody    = msg.getRequestBody().toString();
+  // var resbody    = msg.getResponseBody().toString();
+
   
   if (setCookie === null) {return;}
   

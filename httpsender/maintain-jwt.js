@@ -1,3 +1,4 @@
+/*exported sendingRequest, responseReceived*/
 // Logging with the script name is super helpful!
 function logger() {
   print('[' + this['zap.script.name'] + '] ' + arguments[0]);
@@ -17,7 +18,7 @@ function sendingRequest(msg, initiator, helper) {
 
   var token = ScriptVars.getGlobalVar("jwt-token")
   if (!token) {return;}
-  var headers = msg.getRequestHeader();
+  // var headers = msg.getRequestHeader();
   var cookie = new HtmlParameter(COOKIE_TYPE, "token", token);
   msg.getRequestHeader().getCookieParams().add(cookie);
   // For all non-authentication requests we want to include the authorization header

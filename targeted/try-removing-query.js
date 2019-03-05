@@ -1,3 +1,4 @@
+/* exported invokeWith */
 var Model            = Java.type('org.parosproxy.paros.model.Model');
 var ExtensionHistory = Java.type('org.parosproxy.paros.extension.history.ExtensionHistory');
 var HttpSender       = Java.type('org.parosproxy.paros.network.HttpSender');
@@ -76,7 +77,7 @@ function invokeWith(msg) {
 		logger();
 		logger("Sending params: " + params.join(", "));
 		var newQuery = serialize(data);
-		clone = msg.cloneRequest();
+		var clone = msg.cloneRequest();
 		clone.getRequestHeader().getURI().setQuery(newQuery);
 		sender.sendAndReceive(clone, true);
 		history.addHistory(clone, 1);

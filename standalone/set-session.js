@@ -1,3 +1,4 @@
+/*global sessid, site*/
 // If you have a script (eg ZEST) that authenticates and you need to 
 // set the active session to the new one just set, invoke this script
 
@@ -5,8 +6,6 @@ var URL                   = Java.type('java.net.URL');
 var Control               = Java.type('org.parosproxy.paros.control.Control');
 var View                  = Java.type('org.parosproxy.paros.view.View');
 var ExtensionHttpSessions = Java.type('org.zaproxy.zap.extension.httpsessions.ExtensionHttpSessions')
-var HttpSession           = Java.type('org.zaproxy.zap.extension.httpsessions.HttpSession');
-var HttpSessionTokensSet  = Java.type('org.zaproxy.zap.extension.httpsessions.HttpSessionTokensSet');
 
 // Logging with the script name is super helpful!
 function logger() {
@@ -18,8 +17,6 @@ function logger() {
 
 
 function setActiveSession() {
-  var panel = View.getSingleton().getOutputPanel();
-  
   // If the script is called directly without params it should stop
   try {
     if (!sessid) {return false;}
@@ -51,7 +48,7 @@ function setActiveSession() {
 
   for (var i in sessions) {
     var sesh   = sessions[i];
-	var ftoken = sesh.getTokenValue(sessionLabel);
+	  var ftoken = sesh.getTokenValue(sessionLabel);
 
     if (ftoken === sessionToken) {
       logger("Session set to existing " + sessid);

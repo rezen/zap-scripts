@@ -23,9 +23,6 @@ var Thread            = Java.type('java.lang.Thread');
 var Keys              = Java.type('org.openqa.selenium.Keys')
 var Actions           = Java.type('org.openqa.selenium.interactions.Actions')
 var By                = Java.type('org.openqa.selenium.By');
-var WebElement        = Java.type('org.openqa.selenium.WebElement');
-var WebDriver         = Java.type('org.openqa.selenium.WebDriver');
-
 
 function getLinks(driver) {
 	var elements = driver.findElements(By.cssSelector("a[href^='#']"));

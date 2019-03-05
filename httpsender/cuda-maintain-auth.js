@@ -1,3 +1,4 @@
+/*exported sendingRequest, responseReceived*/
 // Auth is flaky with some Barracuda appliances, this helps those out
 
 // Logging with the script name is super helpful!
@@ -38,7 +39,7 @@ var ScriptVars = Java.type('org.zaproxy.zap.extension.script.ScriptVars');
 var regexes = {
   et:   /et=([0-9]{10})/,
   password: /password=([0-9a-z]{32})/,
-  user: /user=([^\&]+)/,
+  user: /user=([^&]+)/,
 }
 
 function sendingRequest(msg, initiator, helper) {  
@@ -46,7 +47,6 @@ function sendingRequest(msg, initiator, helper) {
   var headers = msg.getRequestHeader();
   var url     = headers.getURI().toString();
   var qry     = headers.getURI().getQuery();
-  var cookies = headers.getCookieParams();
   
   if (initiator === HttpSender.SPIDER_INITIATOR) {}
   
@@ -94,11 +94,8 @@ function sendingRequest(msg, initiator, helper) {
 }
 
 function responseReceived(msg, initiator, helper) {
-  var reqbody     = msg.getRequestBody().toString();
   var resbody     = msg.getResponseBody().toString()
-  var headers     = msg.getRequestHeader();
   var resheaders  = msg.getResponseHeader()
-  var url         = headers.getURI().toString()
   var setCookie   = resheaders.getHeader('Set-Cookie');
   
   // If not Set-Cookie response ... move on
@@ -120,9 +117,9 @@ function responseReceived(msg, initiator, helper) {
   // Make cookie info available
   ScriptVars.setGlobalVar("cuda.cookie_value", secret);
   ScriptVars.setGlobalVar("cuda.cookie_key", key);
-
+  var data = {};
   try {
-    var data = JSON.parse(resbody);
+    data = JSON.parse(resbody);
   } catch (e) {
     return;
   }
